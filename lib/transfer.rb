@@ -25,9 +25,9 @@ class Transfer
   
    def reverse_transfer
     if valid? && sender.balance > amount && self.status == "pending"
+      binding.pry
       sender.deposit(self.amount)
       receiver.withdrawal(self.amount)
-      binding.pry
       self.status = "reversed"
     else
       self.status = "rejected"
