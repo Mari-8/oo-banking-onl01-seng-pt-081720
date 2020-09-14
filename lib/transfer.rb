@@ -23,7 +23,7 @@ class Transfer
     end
   end
   
-   def execute_transaction
+   def reverse_transaction
     if valid? && sender.balance > amount && self.status == "pending"
       sender.deposit(self.amount)
       receiver.withdrawal(self.amount)
