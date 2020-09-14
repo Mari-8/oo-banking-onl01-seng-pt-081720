@@ -12,13 +12,14 @@ class Transfer
     sender.valid? && receiver.valid?
   end
   
-  def execute_transaction 
-    if valid?
-      sender.balance = receiver.balance - amount
-      receiver.balance = receiver.balance + amount
+   def execute_transaction
+    if valid? && sender.balance > amount && self.status == "pending"
+      sender.withdrawal(self.amount)
+      receiver.deposit(self.amount)
       self.status = "complete"
-    else 
-      nil 
+    else
+      self.status = "rejected"
+      "Transaction rejected. Please check your account balance."
     end
   end
   
